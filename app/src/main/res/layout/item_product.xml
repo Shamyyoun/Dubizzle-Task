@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/item_product_vertical_padding" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/item_product_vertical_padding" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/item_product_horizontal_padding" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/item_product_horizontal_padding" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_item_image"
+        android:layout_width="@dimen/item_product_image_size"
+        android:layout_height="@dimen/item_product_image_size"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@id/gl_bottom"
+        app:layout_constraintStart_toStartOf="@+id/gl_start"
+        app:layout_constraintTop_toTopOf="@id/gl_top"
+        tools:src="@drawable/default_image" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_item_title"
+        style="@style/ProductItemTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_product_texts_margin_start"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_item_price"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_image"
+        app:layout_constraintTop_toTopOf="@+id/iv_item_image"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="Notebook" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_item_price"
+        style="@style/ProductItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_product_texts_margin_start"
+        android:layout_marginTop="@dimen/item_product_texts_margin_top"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_image"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_title"
+        tools:text="Price: 50AED" />
+</androidx.constraintlayout.widget.ConstraintLayout>

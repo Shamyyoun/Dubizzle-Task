@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ========== Product Item Styles ========== -->
+    <style name="ProductItemTitle">
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">start</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/item_product_title_text_size</item>
+    </style>
+
+    <style name="ProductItemPrice">
+        <item name="android:textSize">@dimen/item_product_price_text_size</item>
+    </style>
+
+    <!-- ========== Products List Styles ========== -->
+    <style name="ProductsListErrorMessage">
+        <item name="android:textSize">@dimen/products_list_error_msg_text_size</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="ProductsListEmptyMessage">
+        <item name="android:textSize">@dimen/products_list_empty_msg_text_size</item>
+    </style>
+
+
+    <!-- ========== Product Details Styles ========== -->
+    <style name="ProductDetailsTitle">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/product_details_name_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ProductDetailsPrice">
+        <item name="android:textSize">@dimen/product_details_price_text_size</item>
+    </style>
+
+</resources>

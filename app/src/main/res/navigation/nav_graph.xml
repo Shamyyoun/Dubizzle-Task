@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    android:label="@string/app_name"
+    app:startDestination="@id/nav_products_list">
+
+    <fragment
+        android:id="@+id/nav_products_list"
+        android:name="com.example.dubizzletask.features.products.presentation.productsList.ProductsListFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_products_list">
+        <action
+            android:id="@+id/action_nav_products_list_to_nav_product_details"
+            app:destination="@id/nav_product_details" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_product_details"
+        android:name="com.example.dubizzletask.features.products.presentation.productDetails.ProductDetailsFragment"
+        android:label="@string/product_details"
+        tools:layout="@layout/fragment_product_details" >
+        <argument
+            android:name="product"
+            app:argType="com.example.dubizzletask.features.products.domain.models.Product" />
+    </fragment>
+</navigation>
