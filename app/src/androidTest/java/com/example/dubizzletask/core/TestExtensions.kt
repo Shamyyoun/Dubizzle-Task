@@ -7,8 +7,29 @@ import androidx.fragment.app.Fragment
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.core.internal.deps.dagger.internal.Preconditions
+import okhttp3.mockwebserver.MockResponse
+import okhttp3.mockwebserver.MockWebServer
+import okio.buffer
+import okio.source
+import java.nio.charset.StandardCharsets
 
-inline fun <reified T : Fragment> launchFragmentInHiltContainer(
+internal fun MockWebServer.enqueueResponse(code: Int, fileName: String? = null) {
+
+    val jsonResponse = fileName?.let {
+        javaClass.classLoader
+            ?.getResourceAsStream("api-responses/$fileName")
+            ?.source()
+            ?.buffer()
+            ?.readString(StandardCharsets.UTF_8)
+    }
+
+    val mockResponse = MockResponse().setResponseCode(code).apply {
+        if (jsonResponse != null) setBody(jsonResponse)
+    }
+    enqueue(mockResponse)
+}
+
+internal inline fun <reified T : Fragment> launchFragmentInHiltContainer(
     fragmentArgs: Bundle? = null,
     crossinline action: Fragment.() -> Unit = {}
 ) {

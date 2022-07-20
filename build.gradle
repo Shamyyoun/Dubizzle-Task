@@ -23,6 +23,8 @@ buildscript {
         turbineVersion = '0.7.0'
         espressoVersion = '3.4.0'
         jsonTestVersion = '20180813'
+        mockWebServerVersion = '4.4.0'
+        coroutinesTestVersion = '1.6.0'
     }
 
     dependencies {

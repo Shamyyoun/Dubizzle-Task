@@ -7,7 +7,7 @@ import com.example.dubizzletask.common.exceptions.ErrorResponseMessageException
 import com.example.dubizzletask.features.products.domain.models.Product
 import com.example.dubizzletask.features.products.domain.repository.ProductsRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -21,7 +21,7 @@ class GetProductsUseCaseTest {
     private val getProductsUseCase = GetProductsUseCase(productsRepository)
 
     @Test
-    fun `use case is emitting loading`() = runBlockingTest {
+    fun `use case is emitting loading`() = runTest {
         // Given
 
         // When
@@ -40,7 +40,7 @@ class GetProductsUseCaseTest {
 
     @Test
     fun `use case is emitting success with products list when repository return products`() =
-        runBlockingTest {
+        runTest {
             // Given
             val products = listOf(
                 Product(name = "Glasses"),
@@ -71,7 +71,7 @@ class GetProductsUseCaseTest {
 
     @Test
     fun `use case is emitting ApiErrorMessage when repository throw ErrorResponseMessageException`() =
-        runBlockingTest {
+        runTest {
             // Given
             given(productsRepository.getProducts()).willAnswer {
                 throw ErrorResponseMessageException(statusCode = 400, message = "Error happened")
@@ -101,7 +101,7 @@ class GetProductsUseCaseTest {
         }
 
     @Test
-    fun `use case is emitting NetworkError when repository throw IOException`() = runBlockingTest {
+    fun `use case is emitting NetworkError when repository throw IOException`() = runTest {
         // Given
         given(productsRepository.getProducts()).willAnswer {
             throw IOException()
@@ -127,7 +127,7 @@ class GetProductsUseCaseTest {
     }
 
     @Test
-    fun `use case is emitting GeneralError when repository throw Throwable`() = runBlockingTest {
+    fun `use case is emitting GeneralError when repository throw Throwable`() = runTest {
         // Given
         given(productsRepository.getProducts()).willAnswer {
             throw Throwable()

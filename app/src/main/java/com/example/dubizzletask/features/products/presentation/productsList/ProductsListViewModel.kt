@@ -9,7 +9,6 @@ import com.example.dubizzletask.core.BaseViewModel
 import com.example.dubizzletask.features.products.domain.models.Product
 import com.example.dubizzletask.features.products.domain.useCases.GetProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -21,50 +20,41 @@ class ProductsListViewModel @Inject constructor(private val getProducts: GetProd
     private val _viewState = MutableLiveData<ProductsListViewState>()
     val viewState: LiveData<ProductsListViewState>
         get() = _viewState
-    private var productsJob: Job? = null
 
     init {
         fetchProducts()
     }
 
+    @Suppress("IMPLICIT_CAST_TO_ANY")
     fun onEvent(event: ProductsListEvent) = when (event) {
         is ProductsListEvent.FetchProducts -> fetchProducts()
 
         is ProductsListEvent.ProductClicked -> navigateToProductDetails(event.product)
     }
 
-    private fun fetchProducts() {
-        productsJob?.cancel()
-        productsJob = getProducts().onEach {
-            when (it) {
-                is Resource.Loading -> _viewState.value = ProductsListViewState.Loading
+    private fun fetchProducts() = getProducts().onEach {
+        when (it) {
+            is Resource.Loading -> _viewState.value = ProductsListViewState.Loading
 
-                is Resource.Success -> _viewState.value = if (it.data.isNotEmpty()) {
-                    ProductsListViewState.Products(it.data)
-                } else {
-                    ProductsListViewState.Empty
-                }
-
-                is Resource.Error -> _viewState.value = ProductsListViewState.Error(
-                    message = if (it.error is AppError.ApiErrorMessage) {
-                        it.error.message
-                    } else {
-                        null
-                    }
-                )
+            is Resource.Success -> _viewState.value = if (it.data.isNotEmpty()) {
+                ProductsListViewState.Products(it.data)
+            } else {
+                ProductsListViewState.Empty
             }
-        }.launchIn(viewModelScope)
-    }
+
+            is Resource.Error -> _viewState.value = ProductsListViewState.Error(
+                message = if (it.error is AppError.ApiErrorMessage) {
+                    it.error.message
+                } else {
+                    null
+                }
+            )
+        }
+    }.launchIn(viewModelScope)
 
     private fun navigateToProductDetails(product: Product) {
         navigate(
             ProductsListFragmentDirections.actionNavProductsListToNavProductDetails(product)
         )
-    }
-
-    override fun onCleared() {
-        productsJob?.cancel()
-
-        super.onCleared()
     }
 }

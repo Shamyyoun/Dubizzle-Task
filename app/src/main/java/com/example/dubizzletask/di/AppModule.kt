@@ -1,6 +1,5 @@
 package com.example.dubizzletask.di
 
-import com.example.dubizzletask.common.Constants
 import com.example.dubizzletask.features.products.data.remote.dto.ProductsApi
 import com.example.dubizzletask.features.products.data.repository.ProductsRepositoryImpl
 import com.example.dubizzletask.features.products.domain.repository.ProductsRepository
@@ -18,6 +17,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 object AppModule {
 
     @Provides
+    @EndPointUrl
+    fun provideEndPointUrl(): String {
+        return "https://ey3f2y0nre.execute-api.us-east-1.amazonaws.com"
+    }
+
+    @Provides
     fun provideHttpClient(): OkHttpClient {
         val logging = HttpLoggingInterceptor().apply {
             setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -29,9 +34,9 @@ object AppModule {
     }
 
     @Provides
-    fun provideRetrofit(client: OkHttpClient): Retrofit {
+    fun provideRetrofit(client: OkHttpClient, @EndPointUrl endPointUrl: String): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(Constants.END_POINT)
+            .baseUrl(endPointUrl)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

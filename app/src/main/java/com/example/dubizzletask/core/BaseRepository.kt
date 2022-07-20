@@ -27,8 +27,7 @@ abstract class BaseRepository {
 
     private fun <R> handleErrorResponse(response: Response<R>): Throwable {
         try {
-            val errorResponse = response.errorBody()?.string()
-            val jsonObject = JSONObject(errorResponse)
+            val jsonObject = JSONObject(response.errorBody()?.string() ?: "{}")
             val message = when {
                 jsonObject.has("message") -> jsonObject.getString("message")
                 jsonObject.has("Message") -> jsonObject.getString("Message")
